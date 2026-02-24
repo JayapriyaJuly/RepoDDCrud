@@ -19,9 +19,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Build and push backend
+        uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./crud-dd-task-mean-app/backend
+          file: ./crud-dd-task-mean-app/backend/Dockerfile
           push: true
-          tags: jayapriyajuly/ddcrud:latest
+          tags: jayapriyajuly/ddcrud-backend:latest
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v4
+        with:
+          context: ./crud-dd-task-mean-app/frontend
+          file: ./crud-dd-task-mean-app/frontend/Dockerfile
+          push: true
+          tags: jayapriyajuly/ddcrud-frontend:latest
